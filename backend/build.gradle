@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'com.codurance.codurawise'
+version '0.1-SKELETON'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation platform('software.amazon.awssdk:bom:2.18.21')
+    implementation 'software.amazon.awssdk:dynamodb-enhanced:2.18.21'
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.2'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.11.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.0'
+    testImplementation 'org.mockito:mockito-core:4.8.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task packageFat(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+    dirMode = 0755
+    fileMode = 0755
+}
