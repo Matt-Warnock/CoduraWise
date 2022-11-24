@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import ResourceListPage from "./ResourceListPage";
 import React from "react";
 import { server } from "../../mocks/server";
@@ -7,13 +7,26 @@ describe("given the resorce list page", () => {
   beforeEach(() => {
     server.listen();
   });
-  test("it renders the resource list", async () => {
+  test("it renders the resource list", () => {
     render(<ResourceListPage />);
 
-    const resourceList = await screen.getByRole("list");
+    const resourceList = screen.getByRole("list");
 
     expect(resourceList).toHaveClass("resource-list__container");
   });
-});
+  test("the list will include the titles Java, Python and Javascript", async () => {
+    render(<ResourceListPage />);
 
-export {};
+    const title1 = await screen.findByRole("heading", { name: "Title: Java" });
+    const title2 = await screen.findByRole("heading", {
+      name: "Title: Python",
+    });
+    const title3 = await screen.findByRole("heading", {
+      name: "Title: Javascript",
+    });
+
+    expect(title1).toBeInTheDocument();
+    expect(title2).toBeInTheDocument();
+    expect(title3).toBeInTheDocument();
+  });
+});

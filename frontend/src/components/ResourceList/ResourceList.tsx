@@ -11,11 +11,13 @@ interface ResourceListProps {
 const ResourceList = ({ resources }: ResourceListProps) => {
   return (
     <ul className="resource-list__container">
-      {resources.map((resource) => (
-        <li key={resource.id}>
-          <ResourceCard title={resource.title} link={resource.link} />
-        </li>
-      ))}
+      {resources
+        ? resources.map((resource) => (
+            <li key={resource.id}>
+              <ResourceCard title={resource.title} link={resource.link} />
+            </li>
+          ))
+        : null}
     </ul>
   );
 };
