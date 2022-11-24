@@ -20,6 +20,7 @@ custom:
     createRoute53Record: true
     # endpointType: regional
     # certificateName: codurance.io
+    autoDomain: true
   client:
     bucketName: "codurawise-${self:custom.stage}"
     distributionFolder: ../frontend/build
