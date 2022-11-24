@@ -1,7 +1,7 @@
 To be able to run serverless:
 
 - Install serverless
- 
+
    npm install -g serverless
 
 - Then in this folder
@@ -9,5 +9,7 @@ To be able to run serverless:
    // npm install --save serverless-domain-manager
    // https://www.serverless.com/plugins/serverless-finch#command-line-parameters
    // npm install --save serverless-finch
-   // 
-   npm install 
+   //
+   npm install
+
+## CI/CD
