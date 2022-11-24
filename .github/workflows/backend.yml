@@ -10,7 +10,7 @@ on:
       - 'infra/*'
 
 jobs:
-  deploy-back-end:
+  build-and-test:
 
     runs-on: ubuntu-latest
     permissions:
@@ -38,4 +38,52 @@ jobs:
       with:
         arguments: packageFat
         build-root-directory: ./backend
+
+    - name: Upload zip file artifact for next job
+      uses: actions/upload-artifact@v3
+      with:
+        name: back-end-build
+        path: backend/build/distributions/CoduraWiseBackend-0.1-SKELETON.zip
         
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: infra
+        
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+         
+    - name: Install Serverless Framework
+      run: npm install -g serverless
+    
+    - name: Serverless AWS authentication
+      run: sls config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }} --profile codurawise
+    
+    - name: Create env file
+      run: | # cp sample.env.yml env.yml
+        cat > env.yml << EOF
+        ${{ secrets.ENV }}
+        EOF
+    
+    - name: Install NPM dependencies
+      run: npm install
+    
+    - name: Download back-end-build for deploy
+      uses: actions/download-artifact@v3
+      with:
+        name: back-end-build
+        path: backend/build/distributions/
+    
+    - name: Create Back-end infrastructure and deploy lambda zip to AWS
+      run: sls deploy -s dev
