@@ -77,5 +77,8 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: front-end-build
+    - name: Move
+      run: |
+        mv frontend/build ../frontend/
     - name: Deploy Front-end to S3 bucket
       run: sls client deploy -s dev --no-confirm
