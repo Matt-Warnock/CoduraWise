@@ -43,6 +43,8 @@ public class GetResources implements RequestHandler<APIGatewayProxyRequestEvent,
         response.setStatusCode(200);
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "text/json");
+        headers.put("Access-Control-Allow-Origin", "*");
+        headers.put("Access-Control-Allow-Credentials", "true");
         response.setHeaders(headers);
         response.setBody(gson.toJson(resources));
         return response;
