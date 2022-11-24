@@ -41,7 +41,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: front-end-build
-        path: build
+        path: frontend/build
    
   deploy:
     needs: build-and-test
