@@ -37,6 +37,7 @@ jobs:
     
     - name: Build the frontend
       run: npm run build
+    
     - name: Upload front-end build folder for deploy job
       uses: actions/upload-artifact@v3
       with:
@@ -64,26 +65,24 @@ jobs:
          
     - name: Install Serverless Framework
       run: npm install -g serverless
+    
     - name: Serverless AWS authentication
       run: sls config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }} --profile codurawise
+    
     - name: Create env file
       run: | # cp sample.env.yml env.yml
         cat > env.yml << EOF
         ${{ secrets.ENV }}
         EOF
+    
     - name: Install NPM dependencies
       run: npm install
+    
     - name: Download front-end-build for deploy
       uses: actions/download-artifact@v3
       with:
         name: front-end-build
         path: frontend/build
-    - name: Debug
-      run: |
-        echo "List . -------"
-        ls .
-        echo "List .. -------"
-        ls ..
-        pwd
+    
     - name: Deploy Front-end to S3 bucket
       run: sls client deploy -s dev --no-confirm
