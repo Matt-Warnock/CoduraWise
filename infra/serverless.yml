@@ -33,9 +33,9 @@ provider:
 
   stage: ${self:custom.stage}
 
-  httpApi:
-    shouldStartNameWithService: true
-    cors: true
+  # httpApi:
+  #   shouldStartNameWithService: true
+  #   cors: true
 
   environment:
     AppName: "CoduraWise_${self:provider.stage}"
@@ -56,9 +56,10 @@ functions:
   GetResources:
     handler: com.codurance.codurawise.lambdas.GetResources
     events:
-      - httpApi:
+      - http:
           method: GET
           path: /resources
+          cors: true
     environment:
       TABLE_NAME: ${self:provider.environment.ResourcesTableName}
 
