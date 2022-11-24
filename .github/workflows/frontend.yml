@@ -79,6 +79,10 @@ jobs:
         name: front-end-build
     - name: Move
       run: |
-        mv frontend/build ../frontend/
+        echo "List . -------"
+        ls .
+        echo "List .. -------"
+        ls ..
+        pwd
     - name: Deploy Front-end to S3 bucket
       run: sls client deploy -s dev --no-confirm
