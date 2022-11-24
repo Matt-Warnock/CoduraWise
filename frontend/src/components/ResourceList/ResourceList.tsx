@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Resource } from "../../models/Resource";
+
 import ResourceCard from "../ResourceCard/ResourceCard";
 
 interface ResourceListProps {
@@ -8,11 +10,13 @@ interface ResourceListProps {
 
 const ResourceList = ({ resources }: ResourceListProps) => {
   return (
-    <section>
+    <ul className="resource-list__container">
       {resources.map((resource) => (
-        <ResourceCard key = {resource.id} title = {resource.title} link = {resource.link}/>
+        <li key={resource.id}>
+          <ResourceCard title={resource.title} link={resource.link} />
+        </li>
       ))}
-    </section>
+    </ul>
   );
 };
 
