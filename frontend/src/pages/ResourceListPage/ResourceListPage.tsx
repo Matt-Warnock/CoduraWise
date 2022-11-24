@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import ResourceList from "../../components/ResourceList/ResourceList";
+import { backendUrls, getResources } from "../../routes/paths";
 
 const ResourceListPage = () => {
-  const mockResources = [
-    { id: 1, title: "Java", link: "Java Link" },
-    { id: 2, title: "Python", link: "Python Link" },
-    { id: 3, title: "Javascript", link: "Javascript Link" },
-  ];
+  const [resources, setResources] = useState([]);
 
-  return <ResourceList resources={mockResources} />;
+  useEffect(() => {
+    const newResources = getResources();
+    console.log(newResources);
+    setResources([]);
+  }, []);
+
+  return <ResourceList resources={resources} />;
 };
 
 export default ResourceListPage;

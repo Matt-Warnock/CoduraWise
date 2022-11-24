@@ -415,3 +415,4 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/serverless,java,intellij,maven,gradle,macos,linux,windows,react,node
+.env
