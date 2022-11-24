@@ -1,0 +1,15 @@
+name: Backend build and deploy
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  deploy-back-end:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
