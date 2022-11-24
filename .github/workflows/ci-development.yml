@@ -3,7 +3,7 @@ name: CI for development branch
 on: workflow_dispatch
 
 jobs:
-  deploy-all:
+  deploy-back-end:
 
     runs-on: ubuntu-latest
     permissions:
@@ -31,7 +31,17 @@ jobs:
       with:
         arguments: packageFat
         build-root-directory: ./backend
-    
+        
+  deploy-front-end:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
@@ -39,17 +49,10 @@ jobs:
         cache: 'npm'
 
     - name: Install packages
-      working-directory: ./frontend
       run: npm install
     
     - name: Test frontend
-      working-directory: ./frontend
       run: npm run test
     
     - name: Build the frontend
-      working-directory: ./frontend
       run: npm run build
-        
-        
-        
-        
