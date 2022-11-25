@@ -29,6 +29,12 @@ jobs:
       with:
         node-version: 16
 
+    - name: Create environment
+      run: |
+        echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" > .env
+        pwd
+        cat .env
+
     - name: Install packages
       run: npm install
     
