@@ -24,12 +24,12 @@ describe("given the resorce list page", () => {
       </ContextRouterMock>,
     );
 
-    const title1 = await screen.findByRole("heading", { name: "Title: Java" });
+    const title1 = await screen.findByRole("heading", { name: "Java" });
     const title2 = await screen.findByRole("heading", {
-      name: "Title: Python",
+      name: "Python",
     });
     const title3 = await screen.findByRole("heading", {
-      name: "Title: Javascript",
+      name: "Javascript",
     });
 
     expect(title1).toBeInTheDocument();

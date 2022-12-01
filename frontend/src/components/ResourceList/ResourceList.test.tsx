@@ -8,26 +8,26 @@ describe("given the resource list", () => {
     test("then the titles match the data", () => {
       render(<ResourceList resources={mockResources} />);
 
-      const title1 = screen.getByRole("heading", { name: "Title: Java" });
+      const title1 = screen.getByRole("heading", { name: "Java" });
       expect(title1).toBeInTheDocument();
 
-      const title2 = screen.getByRole("heading", { name: "Title: Python" });
+      const title2 = screen.getByRole("heading", { name: "Python" });
       expect(title2).toBeInTheDocument();
 
-      const title3 = screen.getByRole("heading", { name: "Title: Javascript" });
+      const title3 = screen.getByRole("heading", { name: "Javascript" });
       expect(title3).toBeInTheDocument();
     });
 
     test("then the url match the data", () => {
       render(<ResourceList resources={mockResources} />);
 
-      const url1 = screen.getByRole("link", { name: "Title: Java" });
+      const url1 = screen.getByRole("link", { name: "Java" });
       expect(url1).toHaveAttribute("href", mockResources[0].link);
 
-      const url2 = screen.getByRole("link", { name: "Title: Python" });
+      const url2 = screen.getByRole("link", { name: "Python" });
       expect(url2).toHaveAttribute("href", mockResources[1].link);
 
-      const url3 = screen.getByRole("link", { name: "Title: Javascript" });
+      const url3 = screen.getByRole("link", { name: "Javascript" });
       expect(url3).toHaveAttribute("href", mockResources[2].link);
     });
   });
