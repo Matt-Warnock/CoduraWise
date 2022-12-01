@@ -27,14 +27,14 @@ provider:
   stage: ${self:custom.stage}
 
 # -----------------------------------------------------------------------------
-resources:
-  Resources:
-    DnsRecord:
-      Type: "AWS::Route53::RecordSet"
-      Properties:
-        AliasTarget:
-          DNSName: s3-website.${self:provider.region}.amazonaws.com
-          HostedZoneId: ${self:custom.coduranceHostedZoneId}
-        HostedZoneName: ${self:custom.coduranceHostedZoneName}.
-        Name: ${self:custom.frontDomain.${opt:stage, 'dev'}}
-        Type: 'A'
+# resources:
+#   Resources:
+#     DnsRecord:
+#       Type: "AWS::Route53::RecordSet"
+#       Properties:
+#         AliasTarget:
+#           DNSName: s3-website.${self:provider.region}.amazonaws.com
+#           HostedZoneId: ${self:custom.coduranceHostedZoneId}
+#         HostedZoneName: ${self:custom.coduranceHostedZoneName}.
+#         Name: ${self:custom.frontDomain.${opt:stage, 'dev'}}
+#         Type: 'A'
