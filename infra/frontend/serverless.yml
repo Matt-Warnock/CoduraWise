@@ -14,7 +14,7 @@ custom:
     dev: codurawise-dev.codurance.io
     prod: codurawise-prod.codurance.io
   client:
-    bucketName: "${self:custom.frontDomain.${opt:stage, 'dev'}}"
+    bucketName: "${self:custom.frontDomain.${opt:stage, 'dev'}}.codurawise.io"
     distributionFolder: ../../frontend/build
 
 # -----------------------------------------------------------------------------
