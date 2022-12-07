@@ -22,12 +22,12 @@ custom:
           hostName: codurawise-dev.codurance.io
           replaceKeyPrefixWith: "#!/"
         condition:
-          httpErrorCodeReturnedEquals: '404'
+          httpErrorCodeReturnedEquals: 404
       - redirect:
           hostName: codurawise-dev.codurance.io
           replaceKeyPrefixWith: "#!/"
         condition:
-          httpErrorCodeReturnedEquals: '403'
+          httpErrorCodeReturnedEquals: 403
 
 # -----------------------------------------------------------------------------
 provider:
