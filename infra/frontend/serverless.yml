@@ -15,7 +15,19 @@ custom:
     prod: codurawise-prod.codurance.io
   client:
     bucketName: "${self:custom.frontDomain.${opt:stage, 'dev'}}"
+    errorDocument: index.html
     distributionFolder: ../../frontend/build
+    routingRules:
+      - redirect:
+          hostName: codurawise-dev.codurance.io
+          replaceKeyPrefixWith: "#!/"
+        condition:
+          httpErrorCodeReturnedEquals: '404'
+      - redirect:
+          hostName: codurawise-dev.codurance.io
+          replaceKeyPrefixWith: "#!/"
+        condition:
+          httpErrorCodeReturnedEquals: '403'
 
 # -----------------------------------------------------------------------------
 provider:
@@ -25,16 +37,3 @@ provider:
   region: eu-west-3
 
   stage: ${self:custom.stage}
-
-# -----------------------------------------------------------------------------
-# resources:
-#   Resources:
-#     DnsRecord:
-#       Type: "AWS::Route53::RecordSet"
-#       Properties:
-#         AliasTarget:
-#           DNSName: s3-website.${self:provider.region}.amazonaws.com
-#           HostedZoneId: ${self:custom.coduranceHostedZoneId}
-#         HostedZoneName: ${self:custom.coduranceHostedZoneName}.
-#         Name: ${self:custom.frontDomain.${opt:stage, 'dev'}}
-#         Type: 'A'
