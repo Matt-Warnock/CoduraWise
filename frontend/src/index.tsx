@@ -1,5 +1,5 @@
 import React from "react";
-
+import { createBrowserHistory } from 'history';
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import App from "./App";
@@ -9,16 +9,19 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 
+const history = createBrowserHistory();
+    // 1. Set up the browser history with the updated location
+    // (minus the # sign)
+const path = (/#!(\/.*)$/.exec(location.hash) || [])[1];
+
+if (path) {
+	history.replace(path);
+}
+
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
 );
-
-// If you want to start measuring performance in your app, pass a function
-
-// to log results (for example: reportWebVitals(console.log))
-
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 
 reportWebVitals();
