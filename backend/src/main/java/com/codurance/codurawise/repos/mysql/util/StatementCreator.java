@@ -21,12 +21,14 @@ public class StatementCreator {
       String title = result.getString("Title");
       String link = result.getString("Link");
       Double averageRating = result.getDouble("Average_Rating");
+      String mediaType = result.getString("Media_Type");
 
       Resource resource = new Resource();
       resource.setId(resourceID);
       resource.setTitle(title);
       resource.setLink(link);
       resource.setAverageRating(averageRating);
+      resource.setMediaType(mediaType);
       resources.add(resource);
     }
     return resources;

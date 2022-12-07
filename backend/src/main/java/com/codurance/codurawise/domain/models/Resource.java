@@ -7,6 +7,8 @@ public class Resource {
   private String link;
   private Double averageRating;
 
+  private String mediaType;
+
   public void setId(Integer id) {
     this.id = id;
   }
@@ -21,5 +23,9 @@ public class Resource {
 
   public void setAverageRating(Double averageRating) {
     this.averageRating = averageRating;
+  }
+
+  public void setMediaType(String mediaType) {
+    this.mediaType = mediaType;
   }
 }
