@@ -8,7 +8,7 @@ const Header = () => {
     <header className="main-header">
       <div className="main-header__logo">
         <img
-          src="codurance-logo.png"
+          src="/codurance-logo.png"
           alt="Codurance Logo"
           width="50px"
           height="50px"
@@ -23,3 +23,4 @@ const Header = () => {
 };
 
 export default Header;
+
