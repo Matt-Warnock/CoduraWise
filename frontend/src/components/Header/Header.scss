@@ -1,11 +1,12 @@
 .main-header {
-  background-color: aliceblue;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 0 0.6rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: monospace, sans-serif;
   font-size: 0.9em;
-  
+
   &__logo {
     display: flex;
     justify-content: space-between;
