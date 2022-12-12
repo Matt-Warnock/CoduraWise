@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { MediaType } from "../../models/MediaTypes";
 import { Resource } from "../../models/Resource";
-import { ResourcesContext } from "../../store/ResourcesContext";
 import ResourceCard from "../ResourceCard/ResourceCard";
 import "./ResourceList.scss";
 
