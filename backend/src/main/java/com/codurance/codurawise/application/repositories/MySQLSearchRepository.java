@@ -1,8 +1,7 @@
 package com.codurance.codurawise.application.repositories;
 
-import com.codurance.codurawise.domain.models.Resource;
-
 import com.codurance.codurawise.application.repositories.mysql.util.PreparedStatementExecutor;
+import com.codurance.codurawise.domain.models.Resource;
 import com.codurance.codurawise.domain.ports.repositories.SearchRepository;
 
 import java.sql.Connection;
@@ -19,6 +18,9 @@ public class MySQLSearchRepository implements SearchRepository {
 
   @Override
   public List<Resource> queryByTitleAndTag(String title, String tag) {
+    // TODO: When returning you don't need else if or else
+    // TODO: this logic is better to be handled in the service, so it's
+    // implemented only once and not once for every implementation of your repository
     if (title != null && tag == null) {
       return queryByTitle(title);
     } else if (tag != null && title == null) {
@@ -31,6 +33,10 @@ public class MySQLSearchRepository implements SearchRepository {
   @Override
   public List<Resource> queryBothByTitleAndTag(String title, String tag) {
     try {
+      // TODO:
+      // There is a nice java library that makes this sql syntax a little nicer
+      // https://github.com/zsoltherpai/fluent-jdbc it may help you remove some lines
+      // and clean a little bit this code
       String sql = ("SELECT" +
         " Resource.* " +
         "FROM Resource " +
@@ -46,6 +52,9 @@ public class MySQLSearchRepository implements SearchRepository {
 
       return runQuery(preparedStatement);
     } catch (SQLException sqlException) {
+      // TODO:
+      // Application exceptions are part of the application, I would recommend that
+      // next time you add typed exceptions so it's more explicit and easier to find
       throw new RuntimeException("Error searching resources", sqlException);
     }
   }
@@ -97,5 +106,4 @@ public class MySQLSearchRepository implements SearchRepository {
   private static String anyMatch(String title) {
     return "%" + title + "%";
   }
-
 }

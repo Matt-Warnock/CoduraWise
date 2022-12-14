@@ -7,8 +7,8 @@ import java.sql.Connection;
 
 /**
  * Gets the environment variables from the Lambda context used to
- *   - get secret
- *   - create MySQL connection
+ * - get secret
+ * - create MySQL connection
  */
 public class MySqlConnectionProvider {
 

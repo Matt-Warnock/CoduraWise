@@ -23,7 +23,6 @@ public class GetResources implements RequestHandler<APIGatewayProxyRequestEvent,
   private final ResourceService resourceService;
 
   public GetResources() {
-
     ResourcesRepository repository;
     try {
       Connection connection = MySqlConnectionProvider.createDatabaseConnection();

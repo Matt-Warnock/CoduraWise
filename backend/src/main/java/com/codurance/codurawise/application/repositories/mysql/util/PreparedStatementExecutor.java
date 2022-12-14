@@ -3,7 +3,9 @@ package com.codurance.codurawise.application.repositories.mysql.util;
 import com.codurance.codurawise.domain.models.Resource;
 import com.codurance.codurawise.domain.models.Tag;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
