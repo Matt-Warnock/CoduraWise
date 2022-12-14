@@ -1,4 +1,4 @@
-package com.codurance.codurawise.repos.mysql.util;
+package com.codurance.codurawise.application.repositories.mysql.util;
 
 import com.codurance.codurawise.domain.models.Resource;
 import com.codurance.codurawise.domain.models.Tag;

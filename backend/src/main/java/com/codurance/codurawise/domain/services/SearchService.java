@@ -1,7 +1,7 @@
 package com.codurance.codurawise.domain.services;
 
 import com.codurance.codurawise.domain.models.Resource;
-import com.codurance.codurawise.repos.SearchRepository;
+import com.codurance.codurawise.domain.ports.repositories.SearchRepository;
 
 import java.util.List;
 

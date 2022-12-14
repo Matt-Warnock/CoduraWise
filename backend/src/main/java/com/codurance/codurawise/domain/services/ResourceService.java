@@ -1,12 +1,12 @@
 package com.codurance.codurawise.domain.services;
 
 import com.codurance.codurawise.domain.models.Resource;
-import com.codurance.codurawise.repos.ResourcesRepository;
+import com.codurance.codurawise.domain.ports.repositories.ResourcesRepository;
 
 import java.util.List;
 
 public class ResourceService {
-  private final ResourcesRepository repository;
+  private final com.codurance.codurawise.domain.ports.repositories.ResourcesRepository repository;
 
   public ResourceService(ResourcesRepository repository) {
     this.repository = repository;

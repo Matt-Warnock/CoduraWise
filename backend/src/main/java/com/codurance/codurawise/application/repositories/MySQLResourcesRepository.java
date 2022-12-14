@@ -1,18 +1,18 @@
-package com.codurance.codurawise.repos.mysql;
+package com.codurance.codurawise.application.repositories;
 
 import com.codurance.codurawise.domain.models.Resource;
-import com.codurance.codurawise.repos.ResourcesRepository;
-import com.codurance.codurawise.repos.mysql.util.PreparedStatementExecutor;
+import com.codurance.codurawise.domain.ports.repositories.ResourcesRepository;
+import com.codurance.codurawise.application.repositories.mysql.util.PreparedStatementExecutor;
 
 import java.sql.*;
 import java.util.List;
 
-public class ResourcesMySQLRepository implements ResourcesRepository {
+public class MySQLResourcesRepository implements ResourcesRepository {
 
   private static final String RESOURCE_TABLE = "Resource";
   private final Connection connection;
 
-  public ResourcesMySQLRepository(Connection connection) {
+  public MySQLResourcesRepository(Connection connection) {
     this.connection = connection;
   }
 

@@ -1,4 +1,4 @@
-package com.codurance.codurawise.repos;
+package com.codurance.codurawise.domain.ports.repositories;
 
 import com.codurance.codurawise.domain.models.Resource;
 

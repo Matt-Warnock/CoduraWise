@@ -1,19 +1,19 @@
-package com.codurance.codurawise.repos.mysql;
+package com.codurance.codurawise.application.repositories;
 
 import com.codurance.codurawise.domain.models.Resource;
-import com.codurance.codurawise.repos.SearchRepository;
+
+import com.codurance.codurawise.application.repositories.mysql.util.PreparedStatementExecutor;
+import com.codurance.codurawise.domain.ports.repositories.SearchRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.codurance.codurawise.repos.mysql.util.PreparedStatementExecutor.executeResourceQuery;
-
-public class SearchMySQLRepository implements SearchRepository {
+public class MySQLSearchRepository implements SearchRepository {
   private final Connection connection;
 
-  public SearchMySQLRepository(Connection connection) {
+  public MySQLSearchRepository(Connection connection) {
     this.connection = connection;
   }
 
@@ -91,7 +91,7 @@ public class SearchMySQLRepository implements SearchRepository {
   }
 
   private List<Resource> runQuery(PreparedStatement preparedStatement) throws SQLException {
-    return executeResourceQuery(preparedStatement);
+    return PreparedStatementExecutor.executeResourceQuery(preparedStatement);
   }
 
   private static String anyMatch(String title) {
