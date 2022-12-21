@@ -75,7 +75,6 @@ const AddResourceForm = () => {
             onChange={handleInputChange}
             placeholder="Link to Resource"
           />
-          <div className="cut"></div>
         </div>
         <div className="add-resource__input-container-with-instruction">
           <div className="add-resource__input-container">
@@ -84,7 +83,6 @@ const AddResourceForm = () => {
               type="text"
               name="tags"
               pattern="(#\w{3,})+"
-              autoFocus
               required
               title="Please append each tag with a '#' without spaces."
               value={formValues.tags}
@@ -95,7 +93,6 @@ const AddResourceForm = () => {
           <small className="add-resource__instruction">
             Enter tags with a prepending &quot;#&quot; without spaces.
           </small>
-          <div className="cut"></div>
         </div>
         <MediaCheckBox setCheckedMediaType={setCheckedMediaType} />
         <StarRatingInput setRating={setRating} />
@@ -104,7 +101,6 @@ const AddResourceForm = () => {
           type="submit"
           value="Submit Resource"
         />
-        <div className="cut"></div>
       </form>
     </>
   );
