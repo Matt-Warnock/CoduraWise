@@ -1,6 +1,6 @@
 import React from "react";
 import { Tag } from "../../models/Tags";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBarHome from "../SearchBarHome/SearchBarHome";
 import TagCloudTag from "../TagCloudTag/TagCloudTag";
 import "./TagCloud.scss";
 
@@ -12,7 +12,7 @@ const TagCloud = ({ tags }: TagCloudProps) => {
   return (
     <div className="home__container">
       <div className="home__bodySearch">
-        <SearchBar />
+        <SearchBarHome />
       </div>
       <div className="home__tag-cloud">
         {tags
