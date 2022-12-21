@@ -47,10 +47,7 @@ const AddResourceForm = () => {
   return (
     <>
       <form className="add-resource__form" onSubmit={handleSubmit}>
-        <div className="add-resource__input-container">
-          <label className="add-resource__label" htmlFor="title">
-            Title:
-          </label>
+        <div className="add-resource__input-container ic1">
           <input
             className="add-resource__input"
             type="text"
@@ -61,12 +58,11 @@ const AddResourceForm = () => {
             title="Requires a title"
             value={formValues.title}
             onChange={handleInputChange}
+            placeholder="Title of Resource"
           />
         </div>
+        <div className="add-resource__cut"></div>
         <div className="add-resource__input-container">
-          <label className="add-resource__label" htmlFor="link">
-            Resource Link:
-          </label>
           <input
             className="add-resource__input"
             type="text"
@@ -77,13 +73,12 @@ const AddResourceForm = () => {
             title="Please give a valid URL to the resource"
             value={formValues.link}
             onChange={handleInputChange}
+            placeholder="Link to Resource"
           />
+          <div className="cut"></div>
         </div>
         <div className="add-resource__input-container-with-instruction">
           <div className="add-resource__input-container">
-            <label className="add-resource__label" htmlFor="tags">
-              Tags:
-            </label>
             <input
               className="add-resource__input"
               type="text"
@@ -94,11 +89,13 @@ const AddResourceForm = () => {
               title="Please append each tag with a '#' without spaces."
               value={formValues.tags}
               onChange={handleInputChange}
+              placeholder="Input Tags"
             />
           </div>
           <small className="add-resource__instruction">
             Enter tags with a prepending &quot;#&quot; without spaces.
           </small>
+          <div className="cut"></div>
         </div>
         <MediaCheckBox setCheckedMediaType={setCheckedMediaType} />
         <StarRatingInput setRating={setRating} />
@@ -107,9 +104,11 @@ const AddResourceForm = () => {
           type="submit"
           value="Submit Resource"
         />
+        <div className="cut"></div>
       </form>
     </>
   );
 };
 
 export default AddResourceForm;
+
