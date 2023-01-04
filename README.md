@@ -56,17 +56,53 @@ REACT_APP_BACKEND_URL=<base_HTTP_route>
 
 #### Run front-end
 
-Within the `frontend` folder in the terminal window.
-First insure you have the dependencies installed with:
+In the `frontend` directory, you can run:
+
+##### To install dependences
 ```
 npm install
 ```
-Then:
+##### Runs the app in the development mode
 ```
 npm run start
 ```
 
-#### Running tests
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+##### To Launch all the test runner in the interactive watch mode
 ```
-npm run tests
+npm run test
 ```
+
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+##### To Lanch a specific test runner
+```
+npm run test [test name]
+```
+
+#### Upload to AWS S3 bucket
+Ensure you have aws CLI installed and configured with codurawise credentials.
+
+```
+aws s3 sync build/ s3://codurawise-front-end>
+```
+## CI/CD
+
+To be able to run serverless:
+
+- Install serverless
+```
+npm install -g serverless
+```
+-Then in this folder
+```
+npm install --save serverless-domain-manager
+npm install --save serverless-finch
+npm install
+```
+More information on this link:
+https://www.serverless.com/plugins/serverless-finch#command-line-parameters
