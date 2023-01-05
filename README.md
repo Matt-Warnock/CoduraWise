@@ -1,43 +1,28 @@
-# CoduraWise
-***The Codurance curated resource sharing platform***
-
-## About this Application
-
-#### What's the problem we're solving?
+# CoduraWise - Curated Resource Sharing Platform
 
 Crafts People want to find great resources on specific subjects, saving them time and effort sifting through poor quality and exhaustive amounts of resources.
+## Features
 
-This application is designed for Crafts People to post resources, submit ratings and reviews on those resources.
-
-Resources can be categorised and filtered for easy searching.
+- post resources
+ - categorised by media type (video, article, book, tutorial, course)
+- Customisable tags on resources
+- submit ratings and reviews
+- Searchable by tag and title
+- Filter by media type
 
 ## Technology Stack
 
-The app is constructed as a distributed system with a separate front-end and back-end. There are distributed using AWS services using serverless and GitHub Actions for CI/CD pipelines.
+The app consists of a front-end and back-end using AWS services deployed with GitHub Actions.
 
-#### Front-end
-
-React JS using TypeScript and Sass in an S3 bucket.
-
-#### Back-end
-
-Gateways and Lambdas are used with Java using a RDS MySQL database service.
-
-#### CI/CD pipelines
-
-There are two separate pipelines, for front-end and back-end.
-These are coded for GitHub Actions using Serverless to deploy the AWS services.
+- Front-end - React JS using TypeScript and Sass in an S3 bucket.
+- Back-end - Gateways and Lambdas are used with Java using a RDS MySQL database service.
+- Front and back-end pipelines using [Serverless](https://www.serverless.com)
 
 #### Overview of structure
 
 ![image of technology_stack](readme_images/technology_stack.png)
 
-#### C4 Diagrams
-
-![C1 and C2 Diagrams](readme_images/c1_c2_diagrams.png)
-![C3 Diagrams](readme_images/c3_diagram.png)
-
-## Manual Deployment Using Serverless
+## Manual Deployment Using [Serverless](https://www.serverless.com)
 
 If any changes are made to the project make sure to build the application with all dependencies using:
 
@@ -77,10 +62,9 @@ https://www.serverless.com/plugins/serverless-finch#command-line-parameters
 
 #### Node JS
 
-Ensure you have Node and npm installed locally.
-
-node version: `16.14.0`,
-npm version: `8.19.3`
+using:
+- node version: `16.14.0`
+- npm version: `8.19.3`
 
 
 #### Local environment variable setup
@@ -128,7 +112,11 @@ npm run test [test name]
 
 Run this commands inside the `backend` directory.
 
-Make sure Gradle is installed locally and run:
+Make sure Gradle is installed locally ([gradle installation guide](https://gradle.org/install/)) and run:
 ```
 gradle test
 ```
+#### C4 Diagrams
+
+![C1 and C2 Diagrams](readme_images/c1_c2_diagrams.png)
+![C3 Diagrams](readme_images/c3_diagram.png)
