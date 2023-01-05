@@ -37,7 +37,43 @@ These are coded for GitHub Actions using Serverless to deploy the AWS services.
 ![C1 and C2 Diagrams](readme_images/c1_c2_diagrams.png)
 ![C3 Diagrams](readme_images/c3_diagram.png)
 
-## Running front-end locally
+## Manual Deployment Using Serverless
+
+If any changes are made to the project make sure to build the application with all dependencies using:
+
+```
+gradle packageFat
+```
+
+#### Install serverless
+
+```
+npm install -g serverless
+```
+
+##### Deploy frontend
+
+Run command inside the `infra\frontend` folder
+
+```
+npm install
+serverless client deploy --no-confirm
+```
+
+##### Deploy backend
+
+Run command inside the `infra\backend` folder
+
+```
+npm install
+serverless  deploy --param="username=<db_user>" --param="password=<db_password>"
+```
+
+More information on this link:
+https://www.serverless.com/plugins/serverless-finch#command-line-parameters
+
+
+## Using front-end locally
 
 #### Node JS
 
@@ -53,8 +89,6 @@ You will need to create a `.env` file in the root of the `frontend` folder of th
 ```
 REACT_APP_BACKEND_URL=<back_end_base_url>
 ```
-
-#### Run front-end
 
 In the `frontend` directory, you can run:
 
@@ -72,39 +106,29 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-##### To Launch all the test runner in the interactive watch mode
+## Tests
+
+### Front-end
+
+Run these commands inside the `frontend` directory.
+
+To Launch all the test runner in the interactive watch mode:
 ```
 npm run test
 ```
 
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-##### To Lanch a specific test runner
+To Lanch a specific test runner:
 ```
 npm run test [test name]
 ```
 
-#### Upload to AWS S3 bucket
-Ensure you have aws CLI installed and configured with codurawise credentials.
+### Back-end
 
-```
-aws s3 sync build/ s3://<front_end_base_url>
-```
-## CI/CD
+Run this commands inside the `backend` directory.
 
-To be able to manually deploy the AWS services:
-
-- Install serverless
+Make sure Gradle is installed locally and run:
 ```
-npm install -g serverless
+gradle test
 ```
--Then in this folder
-```
-npm install --save serverless-domain-manager
-npm install --save serverless-finch
-npm install
-
-serverless client deploy --no-confirm
-```
-More information on this link:
-https://www.serverless.com/plugins/serverless-finch#command-line-parameters
