@@ -17,7 +17,7 @@ The app is constructed as a distributed system with a separate front-end and bac
 
 #### Front-end
 
-React Native Library using TypeScript and Sass in an S3 bucket.
+React JS using TypeScript and Sass in an S3 bucket.
 
 #### Back-end
 
@@ -51,7 +51,7 @@ npm version: `8.19.3`
 
 You will need to create a `.env` file in the root of the `frontend` folder of this project. This needs to contain a variable for the base HTTP route of the back-end in the following format:
 ```
-REACT_APP_BACKEND_URL=<base_HTTP_route>
+REACT_APP_BACKEND_URL=<back_end_base_url>
 ```
 
 #### Run front-end
@@ -88,11 +88,11 @@ npm run test [test name]
 Ensure you have aws CLI installed and configured with codurawise credentials.
 
 ```
-aws s3 sync build/ s3://codurawise-front-end>
+aws s3 sync build/ s3://<front_end_base_url>
 ```
 ## CI/CD
 
-To be able to run serverless:
+To be able to manually deploy the AWS services:
 
 - Install serverless
 ```
@@ -103,6 +103,8 @@ npm install -g serverless
 npm install --save serverless-domain-manager
 npm install --save serverless-finch
 npm install
+
+serverless client deploy --no-confirm
 ```
 More information on this link:
 https://www.serverless.com/plugins/serverless-finch#command-line-parameters
