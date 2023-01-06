@@ -18,7 +18,7 @@ The app consists of a front-end and back-end using AWS services deployed with Gi
 - Back-end - Gateways and Lambdas are used with Java using a RDS MySQL database service.
 - Front and back-end pipelines using [Serverless](https://www.serverless.com)
 
-#### Overview of structure
+## Overview of structure
 
 ![image of technology_stack](readme_images/technology_stack.png)
 
@@ -35,8 +35,16 @@ gradle packageFat
 ```
 npm install -g serverless
 ```
+More information on [serverless installation](https://)
 
-##### Deploy frontend
+#### AWS Credentials
+You will need to configure the AWS credentials. One way of doing this is with the CLI command:
+```
+serverless config credentials --provider aws --key <key> --secret <secret>
+```
+
+More information on the [AWS credentials configuration](https://www.serverless.com/framework/docs/providers/aws/guide/credentials/)
+#### Deploy frontend
 
 Run command inside the `infra\frontend` folder
 
@@ -45,7 +53,7 @@ npm install
 serverless client deploy --no-confirm
 ```
 
-##### Deploy backend
+#### Deploy backend
 
 Run command inside the `infra\backend` folder
 
@@ -76,11 +84,11 @@ REACT_APP_BACKEND_URL=<back_end_base_url>
 
 In the `frontend` directory, you can run:
 
-##### To install dependences
+#### To install dependences
 ```
 npm install
 ```
-##### Runs the app in the development mode
+#### Runs the app in the development mode
 ```
 npm run start
 ```
@@ -90,9 +98,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-## Tests
+## Testing
 
-### Front-end
+#### Front-end
 
 Run these commands inside the `frontend` directory.
 
@@ -108,7 +116,7 @@ To Lanch a specific test runner:
 npm run test [test name]
 ```
 
-### Back-end
+#### Back-end
 
 Run this commands inside the `backend` directory.
 
@@ -116,7 +124,7 @@ Make sure Gradle is installed locally ([gradle installation guide](https://gradl
 ```
 gradle test
 ```
-#### C4 Diagrams
+## C4 Diagrams
 
 ![C1 and C2 Diagrams](readme_images/c1_c2_diagrams.png)
 ![C3 Diagrams](readme_images/c3_diagram.png)
