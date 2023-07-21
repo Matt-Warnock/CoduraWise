@@ -55,7 +55,7 @@ Run command inside the `infra\frontend` folder
 
 ```
 npm install
-serverless  deploy --param="username=<db_user>" --param="password=<db_password>"
+serverless deploy --param="username=<db_user>" --param="password=<db_password>"
 serverless client deploy --no-confirm
 ```
 
@@ -65,7 +65,7 @@ Run command inside the `infra\backend` folder
 
 ```
 npm install
-serverless  deploy --param="username=<db_user>" --param="password=<db_password>"
+serverless deploy --param="username=<db_user>" --param="password=<db_password>"
 ```
 
 More information on this link:
