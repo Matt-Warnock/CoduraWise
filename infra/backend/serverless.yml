@@ -1,0 +1,106 @@
+service: CoduraWiseBack
+
+frameworkVersion: "3"
+
+plugins:
+  - serverless-domain-manager
+
+# -----------------------------------------------------------------------------
+custom:
+  stage: ${opt:stage, 'dev'}
+  coduranceHostedZoneId: Z2P3IWUGUFUUGE
+  coduranceHostedZoneName: codurance.io
+  databaseUrl: codurawisedb-${self:custom.stage}.${self:custom.coduranceHostedZoneName}
+  dbName: codurawise
+  dbPort: 3306
+  dbSecretStoreName: CoduraWiseDbSecret-${opt:stage, 'dev'}
+  apiDomain:
+    dev: codurawise-api-dev.codurance.io
+    prod: codurawise-api.codurance.io
+  customDomain:
+    domainName: ${self:custom.apiDomain.${opt:stage, 'dev'}}
+    stage: ${self:custom.stage}
+    basePath: ""
+    # apiType: rest
+    hostedZoneId: ${self:custom.coduranceHostedZoneId}
+    createRoute53Record: true
+    # endpointType: regional
+    # certificateName: codurance.io
+    autoDomain: true
+
+# -----------------------------------------------------------------------------
+provider:
+  name: aws
+  runtime: java11
+  profile: codurawise
+  region: eu-west-3
+
+  stage: ${self:custom.stage}
+  timeout: 30
+
+  # vpc:
+  #     securityGroupIds:
+  #       - Ref: LambdaSecurityGroup
+  #     subnetIds:
+  #       - subnet-075cbc4a
+  #       - subnet-72b47f09
+  #       - subnet-e060d189
+  iam:
+    role:
+      statements:
+        # Allow functions to access all secrets
+        - Effect: Allow
+          Action:
+            - "secretsmanager:GetResourcePolicy"
+            - "secretsmanager:GetSecretValue"
+            - "secretsmanager:DescribeSecret"
+            - "secretsmanager:ListSecretVersionIds"
+            - "secretsmanager:ListSecrets"
+          Resource: "*"
+
+  environment:
+    DATABASE_URL: ${self:custom.databaseUrl}
+    DATABASE_PORT: ${self:custom.dbPort}
+    DATABASE_NAME: ${self:custom.dbName}
+    DATABASE_SECRET_STORE_NAME: ${self:custom.dbSecretStoreName}
+
+package:
+  artifact: ../../backend/build/distributions/CoduraWiseBackend-0.1-SKELETON.zip
+
+functions:
+  GetResources:
+    handler: com.codurance.codurawise.lambdas.GetResources
+    events:
+      - http:
+          method: GET
+          path: /resources/
+          cors: true
+  GetResourcesByTag:
+    handler: com.codurance.codurawise.lambdas.GetResourcesByTag
+    events:
+      - http:
+          method: GET
+          path: /resources/tag/{tag}
+          cors: true
+  GetTags:
+    handler: com.codurance.codurawise.lambdas.GetTags
+    events:
+      - http:
+          method: GET
+          path: /tags
+          cors: true
+  Search:
+    handler: com.codurance.codurawise.lambdas.Search
+    events:
+      - http:
+          method: GET
+          path: /search
+          cors: true
+  AddResource:
+    handler: com.codurance.codurawise.lambdas.AddResource
+    events:
+      - http:
+          method: POST
+          path: /resources/new
+          cors: true
+

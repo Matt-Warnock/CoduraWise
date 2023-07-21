@@ -2,9 +2,15 @@ name: Frontend build and deploy
 
 on: 
   workflow_dispatch:
+  push:
+    branches:
+      - development
+    paths:
+      - 'frontend/**'
+      - 'infra/frontend/*'
 
 jobs:
-  deploy-front-end:
+  build-and-test:
   
     runs-on: ubuntu-latest
     
@@ -18,3 +24,74 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Create environment
+      run: |
+        echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" > .env
+        pwd
+        cat .env
+
+    - name: Install packages
+      run: npm install
+    
+    - name: Test frontend
+      run: npm run test
+    
+    - name: Build the frontend
+      run: npm run build
+    
+    - name: Upload front-end build folder for deploy job
+      uses: actions/upload-artifact@v3
+      with:
+        name: front-end-build
+        path: frontend/build
+   
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: infra/frontend
+        
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+         
+    - name: Install Serverless Framework
+      run: npm install -g serverless
+    
+    - name: Serverless AWS authentication
+      run: sls config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }} --profile codurawise
+    
+    - name: Create env file
+      run: | # cp sample.env.yml env.yml
+        cat > env.yml << EOF
+        ${{ secrets.ENV }}
+        EOF
+    
+    - name: Install NPM dependencies
+      run: npm install
+    
+    - name: Download front-end-build for deploy
+      uses: actions/download-artifact@v3
+      with:
+        name: front-end-build
+        path: frontend/build
+    
+    - name: Deploy Front-end to S3 bucket
+      run: sls client deploy -s dev --no-confirm
+      
+    - name: Create DNS record
+      run: sls deploy -s dev

@@ -2,9 +2,15 @@ name: Backend build and deploy
 
 on: 
   workflow_dispatch:
+  push:
+    branches:
+      - development
+    paths:
+      - 'backend/**'
+      - 'infra/backend/**'
 
 jobs:
-  deploy-back-end:
+  build-and-test:
 
     runs-on: ubuntu-latest
     permissions:
@@ -13,3 +19,71 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'corretto'
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Build and Test with Gradle
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: test
+        build-root-directory: ./backend
+
+    - name: Create fat package (include all dependencies) with Gradle
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: packageFat
+        build-root-directory: ./backend
+
+    - name: Upload zip file artifact for next job
+      uses: actions/upload-artifact@v3
+      with:
+        name: back-end-build
+        path: backend/build/distributions/CoduraWiseBackend-0.1-SKELETON.zip
+        
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: infra/backend
+        
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+         
+    - name: Install Serverless Framework
+      run: npm install -g serverless
+    
+    - name: Serverless AWS authentication
+      run: sls config credentials --provider aws --key ${{ secrets.AWS_KEY }} --secret ${{ secrets.AWS_SECRET }} --profile codurawise
+    
+    - name: Create env file
+      run: | # cp sample.env.yml env.yml
+        cat > env.yml << EOF
+        ${{ secrets.ENV }}
+        EOF
+    
+    - name: Install NPM dependencies
+      run: npm install
+    
+    - name: Download back-end-build for deploy
+      uses: actions/download-artifact@v3
+      with:
+        name: back-end-build
+        path: backend/build/distributions/
+    
+    - name: Create Back-end infrastructure and deploy lambda zip to AWS
+      run: sls deploy -s dev --param="username=${{ secrets.RDS_USERNAME }}" --param="password=${{ secrets.RDS_PASSWORD }}"

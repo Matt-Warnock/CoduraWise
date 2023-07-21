@@ -1,0 +1,39 @@
+service: CoduraWiseFront
+
+frameworkVersion: "3"
+
+plugins:
+  - serverless-finch
+
+# -----------------------------------------------------------------------------
+custom:
+  stage: ${opt:stage, 'dev'}
+  coduranceHostedZoneId: Z2P3IWUGUFUUGE
+  coduranceHostedZoneName: codurance.io
+  frontDomain:
+    dev: codurawise-dev.codurance.io
+    prod: codurawise-prod.codurance.io
+  client:
+    bucketName: "${self:custom.frontDomain.${opt:stage, 'dev'}}"
+    errorDocument: index.html
+    distributionFolder: ../../frontend/build
+    routingRules:
+      - redirect:
+          hostName: codurawise-dev.codurance.io
+          replaceKeyPrefixWith: "#!/"
+        condition:
+          httpErrorCodeReturnedEquals: 404
+      - redirect:
+          hostName: codurawise-dev.codurance.io
+          replaceKeyPrefixWith: "#!/"
+        condition:
+          httpErrorCodeReturnedEquals: 403
+
+# -----------------------------------------------------------------------------
+provider:
+  name: aws
+  runtime: java11
+  profile: codurawise
+  region: eu-west-3
+
+  stage: ${self:custom.stage}

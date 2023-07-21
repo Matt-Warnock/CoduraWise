@@ -1,0 +1,21 @@
+.media-selection {
+  width: 10em;
+  margin: 10px;
+
+  border: none;
+  padding: 1em;
+
+  font-family: monospace, sans-serif;
+  font-size: 0.9em;
+
+  & legend {
+    font-size: 1em;
+    margin: 5px;
+  }
+  & input {
+    margin-left: 5px;
+  }
+  & label {
+    margin-left: 5px;
+  }
+}
