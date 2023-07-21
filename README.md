@@ -3,10 +3,10 @@
 Crafts People want to find great resources on specific subjects, saving them time and effort sifting through poor quality and exhaustive amounts of resources.
 ## Features
 
-- post resources
- - categorised by media type (video, article, book, tutorial, course)
+- Post resources
+- Categorised by media type (video, article, book, tutorial, course)
 - Customisable tags on resources
-- submit ratings and reviews
+- Submit ratings and reviews
 - Searchable by tag and title
 - Filter by media type
 
