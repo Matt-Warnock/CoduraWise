@@ -15,7 +15,7 @@ Crafts People want to find great resources on specific subjects, saving them tim
 The app consists of a front-end and back-end using AWS services deployed with GitHub Actions.
 
 - Front-end - React JS using TypeScript and Sass in an S3 bucket.
-- Back-end - Gateways and Lambdas are used with Java using a RDS MySQL database service.
+- Back-end - API Gateway and Lambdas are used with Java using a RDS MySQL database service.
 - Front and back-end pipelines using [Serverless](https://www.serverless.com)
 
 ## Overview of structure
@@ -37,11 +37,16 @@ npm install -g serverless
 ```
 More information on [serverless installation](https://)
 
+Serverless is also creating the domain registers for the backend and frontend. So it deploying an alternative stack (e.g.: some-feature) it is necessary to check the endpoints are not clashing with the dev stack.
+
+The database is also needed - there is a serverless for that. But is is necessary to manage clashes for different stacks accessing the same dev database.
+
 #### AWS Credentials
 You will need to configure the AWS credentials. One way of doing this is with the CLI command:
 ```
 serverless config credentials --provider aws --key <key> --secret <secret>
 ```
+or define the AWS credentials in the command line as environment variables.
 
 More information on the [AWS credentials configuration](https://www.serverless.com/framework/docs/providers/aws/guide/credentials/)
 #### Deploy frontend
@@ -50,6 +55,7 @@ Run command inside the `infra\frontend` folder
 
 ```
 npm install
+serverless  deploy --param="username=<db_user>" --param="password=<db_password>"
 serverless client deploy --no-confirm
 ```
 
